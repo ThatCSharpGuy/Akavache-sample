@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reactive.Linq;
 using Akavache;
 using Xamarin.Forms;
@@ -10,6 +11,8 @@ namespace AkavacheSample
 		const string SimpleUserKey = "user_key";
 		public SimplePage()
 		{
+			Title = "Simple sample";
+
 			var usernameEntry = new Entry { Placeholder = "Username" };
 			var fullNameEntry = new Entry { Placeholder = "Full name" };
 			var saveButton = new Button { Text = "Save" };
@@ -22,7 +25,9 @@ namespace AkavacheSample
 								  {
 									  Username = usernameEntry.Text,
 									  FullName = fullNameEntry.Text
-								  });
+								  },
+					              DateTimeOffset.Now.AddSeconds(15));
+								  // Valido durante 15 segundos
 			};
 
 
@@ -31,12 +36,21 @@ namespace AkavacheSample
 			var fetchButton = new Button { Text = "Get saved" };
 			fetchButton.Clicked += async (sender, e) =>
 			{
-				var usuario = await BlobCache
-								.LocalMachine
-								.GetObject<Usuario>(SimpleUserKey);
+				await BlobCache.LocalMachine.Vacuum();
 
-				usernameLabel.Text = "Username: " + usuario.Username;
-				fullNameLabel.Text = "Full name: " + usuario.FullName;
+				try
+				{
+					var usuario = await BlobCache
+									.LocalMachine
+									.GetObject<Usuario>(SimpleUserKey);
+
+					usernameLabel.Text = "Username: " + usuario.Username;
+					fullNameLabel.Text = "Full name: " + usuario.FullName;
+				}
+				catch(KeyNotFoundException ex)
+				{
+					usernameLabel.Text = ex.Message;
+				}
 			};
 
 			Content = new StackLayout

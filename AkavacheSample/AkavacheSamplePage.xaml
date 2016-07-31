@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:AkavacheSample" x:Class="AkavacheSample.AkavacheSamplePage">
-	<StackLayout>
+	<StackLayout Spacing="10">
 		<Button x:Name="SimpleSamplesButton" Text="Simple samples" />
+		<Button x:Name="LoginSampleButton" Text="Login sample" />
+		<Button x:Name="BytesSamplesButton" Text="Bytes samples" />
+		<Button x:Name="ComplexSamplesButton" Text="Complex samples" />
 	</StackLayout>
 </ContentPage>

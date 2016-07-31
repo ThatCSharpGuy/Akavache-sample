@@ -13,6 +13,8 @@ namespace AkavacheSample
 			MainPage = new NavigationPage(new AkavacheSamplePage());
 		}
 
+
+
 		protected override void OnStart()
 		{
 			// Handle when your app starts
@@ -20,7 +22,7 @@ namespace AkavacheSample
 
 		protected override void OnSleep()
 		{
-			// Handle when your app sleeps
+			BlobCache.Shutdown().Wait();
 		}
 
 		protected override void OnResume()
