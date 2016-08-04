@@ -78,7 +78,7 @@ namespace AkavacheSample
 			
 			Content = new StackLayout
 			{
-				Spacing = 20,
+				Spacing = 5,
 				Padding = 20,
 				Children = {
 					statusLabel,

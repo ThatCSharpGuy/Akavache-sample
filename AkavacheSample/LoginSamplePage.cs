@@ -13,6 +13,8 @@ namespace AkavacheSample
 
 		public LoginSamplePage()
 		{
+			Title = "Login sample";
+
 			userEntry = new Entry { Placeholder = "Username" };
 			passEntry = new Entry { Placeholder = "Password", IsPassword = true };
 			var loginButton = new Button { Text = "Login" };
@@ -21,7 +23,9 @@ namespace AkavacheSample
 			loginButton.Clicked += async (s, a) =>
 			{
 				await BlobCache.Secure.SaveLogin(userEntry.Text,
-										   passEntry.Text);
+				                                 passEntry.Text,
+				                                 "thatcsharpguy.com",
+				                                 DateTimeOffset.Now.AddDays(7));
 			};
 
 
@@ -49,7 +53,7 @@ namespace AkavacheSample
 		{
 			try
 			{
-				var loginInfo = await BlobCache.Secure.GetLoginAsync();
+				var loginInfo = await BlobCache.Secure.GetLoginAsync("thatcsharpguy.com");
 				userEntry.Text = loginInfo.UserName;
 				passEntry.Text = loginInfo.Password;
 			}
